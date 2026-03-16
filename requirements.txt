@@ -1,0 +1,5 @@
+fastapi
+pandas
+requests
+python-multipart
+uvicorn
