@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -31,7 +30,7 @@ export default function Home() {
   }
 
   return (
-    <div style={{ padding: 40 }}>
+    <div>
       <h1>Mouser BOM Tool</h1>
 
       <input type="file" accept=".csv" onChange={handleUpload} />
