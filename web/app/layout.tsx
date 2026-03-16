@@ -1,3 +1,4 @@
+import "./globals.css";
 export const metadata = {
   title: "Mouser BOM Tool",
   description: "Upload CSV and get Mouser pricing.",
