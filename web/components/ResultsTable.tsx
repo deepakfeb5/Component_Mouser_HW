@@ -1,4 +1,4 @@
-
+import ResultsTable from "../components/ResultsTable";
 export default function ResultsTable({ rows }: { rows: any[] }) {
   return (
     <table border={1} cellPadding={6} style={{ marginTop: 20 }}>
