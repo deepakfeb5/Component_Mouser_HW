@@ -1,7 +1,6 @@
-import ResultsTable from "../components/ResultsTable";
 export default function ResultsTable({ rows }: { rows: any[] }) {
   return (
-    <table border={1} cellPadding={6} style={{ marginTop: 20 }}>
+    <table border={1} cellPadding={6} style={{ marginTop: 20, width: "100%", borderCollapse: "collapse" }}>
       <thead>
         <tr>
           <th>Part Number</th>
@@ -15,7 +14,6 @@ export default function ResultsTable({ rows }: { rows: any[] }) {
           <th>Error</th>
         </tr>
       </thead>
-
       <tbody>
         {rows.map((r, i) => (
           <tr key={i}>
