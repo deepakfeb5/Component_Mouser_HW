@@ -1,1 +1,89 @@
-a
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mouser BOM Tool – Simple UI</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 6px; }
+    th { background: #eee; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    button { padding: 8px 14px; margin-left: 10px; }
+  </style>
+</head>
+<body>
+
+<h1>Mouser BOM Processor (Simple HTML UI)</h1>
+
+<input type="file" id="fileInput" accept=".csv">
+<button onclick="upload()">Upload</button>
+
+<p id="status"></p>
+
+<table id="resultsTable" style="display:none;">
+  <thead>
+    <tr>
+      <th>Part Number</th>
+      <th>Qty</th>
+      <th>Manufacturer</th>
+      <th>Lifecycle</th>
+      <th>Stock Info</th>
+      <th>Unit Price</th>
+      <th>Total Price</th>
+      <th>Alternates</th>
+      <th>Error</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h2 id="totalCost"></h2>
+
+<script>
+const BACKEND = "https://YOUR-PROJECT.vercel.app/api";  // ✅ update this
+
+async function upload() {
+  const fileEl = document.getElementById("fileInput");
+  if (!fileEl.files.length) return alert("Select CSV");
+
+  const form = new FormData();
+  form.append("file", fileEl.files[0]);
+
+  document.getElementById("status").innerText = "Processing...";
+
+  const res = await fetch(`${BACKEND}/process-bom`, {
+    method: "POST",
+    body: form
+  });
+
+  const data = await res.json();
+
+  const tbody = document.querySelector("#resultsTable tbody");
+  tbody.innerHTML = "";
+
+  data.results.forEach(r => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${r.PartNumber || "None"}</td>
+      <td>${r.Quantity || "None"}</td>
+      <td>${r.Manufacturer || "None"}</td>
+      <td>${r.Lifecycle || "None"}</td>
+      <td>${r.Stock || "None"}</td>
+      <td>${r.UnitPrice || "None"}</td>
+      <td>${r.TotalPrice || "None"}</td>
+      <td>${r.Alternates?.join(", ") || "None"}</td>
+      <td>${r.Error || "None"}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById("resultsTable").style.display = "table";
+  document.getElementById("totalCost").innerText = "Total Cost: $" + data.total_cost;
+
+  document.getElementById("status").innerText = "";
+}
+</script>
+
+</body>
+</html>
