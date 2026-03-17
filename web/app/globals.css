@@ -1,4 +1,3 @@
-/* ---------- Global Reset ---------- */
 :root {
   color-scheme: light;
 }
@@ -15,7 +14,6 @@ body {
   color: #222;
 }
 
-/* ---------- Headings ---------- */
 h1 {
   margin-bottom: 20px;
   font-size: 26px;
@@ -26,7 +24,6 @@ h2 {
   font-size: 22px;
 }
 
-/* ---------- Table Styles ---------- */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -53,8 +50,6 @@ tr:hover {
   background: #f1f7ff;
 }
 
-/* ---------- File Input ---------- */
 input[type="file"] {
   margin-bottom: 15px;
 }
-
